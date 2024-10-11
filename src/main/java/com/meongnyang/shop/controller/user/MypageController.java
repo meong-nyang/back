@@ -29,15 +29,15 @@ public class MypageController {
     }
 
     // 반려동물정보 조회
-    @GetMapping("/user/pet/{petId}")
-    public ResponseEntity<?> getPet(@PathVariable Long petId) {
+    @GetMapping("/user/pet/{id}")
+    public ResponseEntity<?> getPet(@PathVariable Long id) {
         System.out.println("반려동물정보 조회 완료");
-        return ResponseEntity.ok().body(userService.getPetInfo(petId));
+        return ResponseEntity.ok().body(userService.getPetInfo(id));
     }
 
     // 반려동물정보 수정
-    @PutMapping("/user/pet/{petId}")
-    public ResponseEntity<?> updatePet(@RequestBody ReqUpdatePetDto dto, @PathVariable Long petId) {
+    @PutMapping("/user/pet")
+    public ResponseEntity<?> updatePet(@RequestBody ReqUpdatePetDto dto) {
         userService.updatePet(dto);
         System.out.println(dto);
         return ResponseEntity.ok().body(true);

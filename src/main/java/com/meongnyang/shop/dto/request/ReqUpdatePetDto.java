@@ -5,14 +5,14 @@ import lombok.Data;
 
 @Data
 public class ReqUpdatePetDto {
-    private Long petId;
+    private Long id;
     private String petName;
     private Long petAge;
     private String petType;
 
     public Pet toEntity() {
         return Pet.builder()
-                .petId(petId)
+                .id(id)
                 .petName(petName)
                 .petAge(petAge)
                 .petType(petType)

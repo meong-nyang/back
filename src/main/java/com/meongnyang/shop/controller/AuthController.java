@@ -4,7 +4,7 @@ import com.meongnyang.shop.aspect.annotation.ValidAop;
 import com.meongnyang.shop.dto.request.ReqAdminSigninDto;
 import com.meongnyang.shop.dto.request.ReqUserSigninDto;
 import com.meongnyang.shop.dto.request.ReqUserSignupDto;
-import com.meongnyang.shop.service.UserService;
+import com.meongnyang.shop.service.AuthService;
 import com.meongnyang.shop.service.admin.AdminAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ import javax.validation.Valid;
 public class AuthController {
 
     @Autowired
-    private UserService userService;
+    private AuthService userService;
 
     @Autowired
     private AdminAuthService adminAuthService;

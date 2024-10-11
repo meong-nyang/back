@@ -6,7 +6,7 @@ import lombok.Data;
 @Builder
 @Data
 public class RespPetInfoDto {
-    private Long petId;
+    private Long id;
     private String petName;
     private Long petAge;
     private String petType;
