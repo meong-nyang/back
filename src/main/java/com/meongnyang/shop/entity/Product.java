@@ -1,12 +1,12 @@
 package com.meongnyang.shop.entity;
 
-import com.meongnyang.shop.dto.response.RespGetProductsDto;
+import com.meongnyang.shop.dto.response.RespGetProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -23,6 +23,8 @@ public class Product {
     private String productBrand;
     private String productModel;
     private String productMemo;
+    private LocalDateTime productCreateDate;
+    private LocalDateTime productUpdateDate;
     private Long recommendation;
 
 //    private List<ImgUrl> imgUrls;
@@ -30,8 +32,8 @@ public class Product {
 //    private Category category;
 
 
-    public RespGetProductsDto toRespGetProductsDto() {
-        return RespGetProductsDto.builder()
+    public RespGetProductDto toRespGetProductsDto() {
+        return RespGetProductDto.builder()
                 .id(getId())
                 .productName(getProductName())
                 .petGroupId(getPetGroupId())
@@ -42,6 +44,8 @@ public class Product {
                 .productBrand(getProductBrand())
                 .productModel(getProductModel())
                 .productMemo(getProductMemo())
+                .productCreateDate(getProductCreateDate())
+                .productUpdateDate(getProductUpdateDate())
                 .recommendation(getRecommendation())
                 .build();
     }

@@ -1,6 +1,7 @@
 package com.meongnyang.shop.repository;
 
 import com.meongnyang.shop.entity.Product;
+import com.meongnyang.shop.entity.ProductList;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -9,7 +10,11 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
 
-    public Product getProduct(@Param("productId") Long productId);
+    List<ProductList> findAllByStartIndexAndLimit(
+            @Param("startIndex") Long startIndex,
+            @Param("limit") Long limit);
 
-    public List<Product> getProducts();
+    int getProductsCount();
+
+    Product findById(Long id);
 }

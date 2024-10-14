@@ -6,12 +6,29 @@
 
 <mapper namespace="com.meongnyang.shop.repository.ProductMapper">
 
-    <select id="getProduct" resultType="com.meongnyang.shop.entity.Product">
+    <select id="findAllByStartIndexAndLimit" resultType="com.meongnyang.shop.entity.ProductList">
         select
             id,
             product_name,
-            pet_group_id,
-            category_id,
+            product_price,
+            product_brand
+        from
+            product_tb
+        order by
+            id desc
+        limit #{startIndex}, #{limit}
+    </select>
+
+    <select id="getProductsCount" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            product_tb
+    </select>
+    <select id="findById" resultType="com.meongnyang.shop.entity.Product">
+        select
+            id,
+            product_name,
             product_price,
             product_price_discount,
             product_detail,
@@ -24,23 +41,6 @@
         from
             product_tb
         where
-            id
-    </select>
-
-    <select id="getProducts" resultType="com.meongnyang.shop.entity.Product">
-        select
-            id,
-            product_name,
-            pet_group_id,
-            category_id,
-            product_price,
-            product_price_discount,
-            product_detail,
-            product_brand,
-            product_model,
-            product_memo,
-            recommendation
-        from
-            product_tb
+            id = #{id}
     </select>
 </mapper>
