@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 public class RespProductDetailDto {
     private Long id;
     private String productName;
+    private Long petGroupId;
+    private Long categoryId;
     private Long productPrice;
     private Long productPriceDiscount;
     private String productDetail;

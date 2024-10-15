@@ -5,11 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Builder
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-public class Category {
+@NoArgsConstructor
+public class CategoryProductList {
     private Long id;
-    private String categoryName;
+    private Long categoryId;
+    private String productName;
+    private Long productPrice;
+    private String productBrand;
 }

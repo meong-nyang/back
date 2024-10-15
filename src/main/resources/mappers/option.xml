@@ -6,12 +6,21 @@
 
 <mapper namespace="com.meongnyang.shop.repository.OptionMapper">
 
-    <resultMap id="CategoryResultMap" type="com.meongnyang.shop.entity.Category">
-        <id property="id" column="id"/>
-        <result property="categoryName" column="category_name"/>
-    </resultMap>
+    <select id="findAllByStartIndexAndLimit" resultType="com.meongnyang.shop.entity.CategoryProductList">
+        select
+            id,
+            category_id,
+            product_name,
+            product_price,
+            product_brand
+        from
+            product_tb
+        order by
+            category_id desc
+        limit #{startIndex}, #{limit}
+    </select>
 
-    <select id="getAllCategories" resultMap="CategoryResultMap">
+    <select id="getCategories" resultType="com.meongnyang.shop.entity.Category">
         select
             id,
             category_name

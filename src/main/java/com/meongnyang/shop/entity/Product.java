@@ -1,6 +1,5 @@
 package com.meongnyang.shop.entity;
 
-import com.meongnyang.shop.dto.response.RespGetProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,26 +26,4 @@ public class Product {
     private LocalDateTime productUpdateDate;
     private Long recommendation;
 
-//    private List<ImgUrl> imgUrls;
-//    private PetGroup petGroup;
-//    private Category category;
-
-
-    public RespGetProductDto toRespGetProductsDto() {
-        return RespGetProductDto.builder()
-                .id(getId())
-                .productName(getProductName())
-                .petGroupId(getPetGroupId())
-                .categoryId(getCategoryId())
-                .productPrice(getProductPrice())
-                .productPriceDiscount(getProductPriceDiscount())
-                .productDetail(getProductDetail())
-                .productBrand(getProductBrand())
-                .productModel(getProductModel())
-                .productMemo(getProductMemo())
-                .productCreateDate(getProductCreateDate())
-                .productUpdateDate(getProductUpdateDate())
-                .recommendation(getRecommendation())
-                .build();
-    }
 }

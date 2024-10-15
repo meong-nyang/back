@@ -6,12 +6,33 @@
 
 <mapper namespace="com.meongnyang.shop.repository.ProductMapper">
 
+    <resultMap id="productResultMap" type="com.meongnyang.shop.entity.Product">
+        <id property="id" column="id"/>
+        <result property="productName" column="product_name" />
+        <result property="petGroupId" column="pet_group_id" />
+        <result property="categoryId" column="category_id" />
+        <result property="productPrice" column="product_price" />
+        <result property="productPriceDiscount" column="product_price_discount" />
+        <result property="productDetail" column="product_detail" />
+        <result property="productBrand" column="product_brand" />
+        <result property="productModel" column="product_model" />
+        <result property="productMemo" column="product_memo" />
+        <result property="productCreateDate" column="product_create_date" />
+        <result property="productUpdateDate" column="product_update_date" />
+        <result property="recommendation" column="recommendation" />
+    </resultMap>
+
+    <resultMap id="categoryResultMap" type="com.meongnyang.shop.entity.Category">
+        <id property="id" column="id"/>
+        <result property="categoryName" column="category_name" />
+    </resultMap>
+
     <select id="findAllByStartIndexAndLimit" resultType="com.meongnyang.shop.entity.ProductList">
         select
             id,
-            product_name,
-            product_price,
-            product_brand
+            product_name as productName,
+            product_price as productPrice,
+            product_brand as productBrand
         from
             product_tb
         order by
@@ -25,10 +46,12 @@
         from
             product_tb
     </select>
-    <select id="findById" resultType="com.meongnyang.shop.entity.Product">
+    <select id="findById" resultMap="productResultMap">
         select
             id,
             product_name,
+            pet_group_id,
+            category_id,
             product_price,
             product_price_discount,
             product_detail,
@@ -43,4 +66,5 @@
         where
             id = #{id}
     </select>
+
 </mapper>

@@ -29,6 +29,6 @@ public class ProductController {
     // 상세 조회
     @GetMapping("/products/{productId}")
     public ResponseEntity<?> getProduct(@PathVariable Long productId) {
-        return ResponseEntity.ok().body(productService.getBoardDetail(productId));
+        return ResponseEntity.ok().body(productService.getProductDetail(productId));
     }
 }

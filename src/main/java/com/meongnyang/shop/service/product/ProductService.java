@@ -3,14 +3,17 @@ package com.meongnyang.shop.service.product;
 import com.meongnyang.shop.dto.request.ReqProductListDto;
 import com.meongnyang.shop.dto.response.RespProductDetailDto;
 import com.meongnyang.shop.dto.response.RespProductListDto;
+import com.meongnyang.shop.entity.Category;
 import com.meongnyang.shop.entity.Product;
 import com.meongnyang.shop.entity.ProductList;
 import com.meongnyang.shop.exception.NotFoundProductException;
+import com.meongnyang.shop.repository.OptionMapper;
 import com.meongnyang.shop.repository.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProductService {
@@ -29,7 +32,7 @@ public class ProductService {
                 .build();
     }
 
-    public RespProductDetailDto getBoardDetail(Long productId) {
+    public RespProductDetailDto getProductDetail(Long productId) {
         Product product = productMapper.findById(productId);
 
         if(product == null) {
@@ -39,6 +42,8 @@ public class ProductService {
         return RespProductDetailDto.builder()
                 .id(product.getId())
                 .productName(product.getProductName())
+                .petGroupId(product.getPetGroupId())
+                .categoryId(product.getCategoryId())
                 .productPrice(product.getProductPrice())
                 .productPriceDiscount(product.getProductPriceDiscount())
                 .productDetail(product.getProductDetail())
