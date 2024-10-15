@@ -20,6 +20,7 @@
         <result property="productCreateDate" column="product_create_date" />
         <result property="productUpdateDate" column="product_update_date" />
         <result property="recommendation" column="recommendation" />
+        <collection property="setProduct" javaType="java.util.Set" resultMap="categoryResultMap" />
     </resultMap>
 
     <resultMap id="categoryResultMap" type="com.meongnyang.shop.entity.Category">
@@ -38,6 +39,19 @@
         order by
             id desc
         limit #{startIndex}, #{limit}
+    </select>
+
+    <select id="findAllByCategoryId" resultType="com.meongnyang.shop.entity.CategoryProductList">
+        select
+            id,
+            category_id as categoryId,
+            product_name as productName,
+            product_price as productPrice,
+            product_brand as productBrand
+        from
+            product_tb
+        where
+            category_id = #{categoryId}
     </select>
 
     <select id="getProductsCount" resultType="java.lang.Integer">
@@ -66,5 +80,27 @@
         where
             id = #{id}
     </select>
+
+    <select id="findByCategoryId" resultMap="productResultMap">
+        select
+            id,
+            product_name,
+            pet_group_id,
+            category_id,
+            product_price,
+            product_price_discount,
+            product_detail,
+            product_brand,
+            product_model,
+            product_memo,
+            product_create_date,
+            product_update_date,
+            recommendation
+        from
+            product_tb
+        where
+            category_id = #{categoryId}
+    </select>
+
 
 </mapper>

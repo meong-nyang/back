@@ -6,6 +6,4 @@ import lombok.Data;
 public class ReqProductsCountDto {
     private Long count;
     private Long id;
-    private Long petGroupId;
-    private Long categoryId;
 }

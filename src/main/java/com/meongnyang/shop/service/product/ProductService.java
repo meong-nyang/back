@@ -1,19 +1,18 @@
 package com.meongnyang.shop.service.product;
 
 import com.meongnyang.shop.dto.request.ReqProductListDto;
+import com.meongnyang.shop.dto.response.RespCategoryProductListDto;
 import com.meongnyang.shop.dto.response.RespProductDetailDto;
 import com.meongnyang.shop.dto.response.RespProductListDto;
-import com.meongnyang.shop.entity.Category;
+import com.meongnyang.shop.entity.CategoryProductList;
 import com.meongnyang.shop.entity.Product;
 import com.meongnyang.shop.entity.ProductList;
 import com.meongnyang.shop.exception.NotFoundProductException;
-import com.meongnyang.shop.repository.OptionMapper;
 import com.meongnyang.shop.repository.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ProductService {
@@ -29,6 +28,16 @@ public class ProductService {
         return RespProductListDto.builder()
                 .products(productLists)
                 .totalCount(productTotalCount)
+                .build();
+    }
+
+    public RespCategoryProductListDto getCategoryProductList(Long categoryId) {
+        Product product = productMapper.findByCategoryId(categoryId);
+        List<CategoryProductList> categoryProductLists = productMapper.findAllByCategoryId(categoryId);
+
+        return RespCategoryProductListDto.builder()
+                .categoryId(product.getCategoryId())
+                .products(categoryProductLists)
                 .build();
     }
 

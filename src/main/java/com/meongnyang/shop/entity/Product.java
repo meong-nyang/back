@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Builder
@@ -25,5 +26,7 @@ public class Product {
     private LocalDateTime productCreateDate;
     private LocalDateTime productUpdateDate;
     private Long recommendation;
+
+    private Set<Category> setProduct;
 
 }

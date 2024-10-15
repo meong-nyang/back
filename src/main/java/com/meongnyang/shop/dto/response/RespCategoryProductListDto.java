@@ -14,6 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 public class RespCategoryProductListDto {
 
+    private Long categoryId;
     private List<CategoryProductList> products;
-    private Integer totalCount;
 }
