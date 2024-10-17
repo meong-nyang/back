@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,15 +18,9 @@ public class ProductController {
 
     // 전체 상품 조회
     @GetMapping("/products")
-    public ResponseEntity<?> getProductsAll(ReqProductListDto dto) {
+    public ResponseEntity<?> getProductsAll(@RequestBody ReqProductListDto dto) {
         return ResponseEntity.ok().body(productService.getProductList(dto));
     }
-
-    // 전체 상품 카운트
-//    @GetMapping("/products/count")
-//    public ResponseEntity<?> getProductsCount(ReqProductsCountDto dto) {
-//        return ResponseEntity.ok(productService.getProductsCount());
-//    }
 
     // 카테고리별 상품 조회
     @GetMapping("/products/categories/{categoryId}")

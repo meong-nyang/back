@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PetGroup {
+public class Cart {
     private Long id;
-    private String PetGroupName;
+    private Long userId;
+    private Long productId;
+    private Long productCount;
 }
