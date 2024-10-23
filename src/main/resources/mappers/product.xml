@@ -176,17 +176,28 @@
         limit #{startIndex}, #{limit}
     </select>
 
-    <select id="findAllByStartIndexAndLimit" resultType="com.meongnyang.shop.entity.ProductList">
+    <select id="findProductsList" resultMap="productResultMap">
         select
-            id,
-            product_name as productName,
-            product_price as productPrice,
-            product_brand as productBrand
+        p.id,
+        p.product_name,
+        p.pet_group_id,
+        p.category_id,
+        p.product_price,
+        p.product_price_discount,
+        p.product_brand,
+        pg.id as pg_id,
+        pg.category_group_name,
+        c.id as c_id,
+        c.category_name,
+        iu.id as iu_id,
+        iu.product_id as iu_product_id,
+        iu.img_path,
+        iu.img_name
         from
-            product_tb
-        order by
-            id desc
-        limit #{startIndex}, #{limit}
+        product_tb p
+        left outer join pet_group_tb pg on(p.pet_group_id = pg.id)
+        left outer join category_tb c on(p.category_id = c.id)
+        left outer join img_url_tb iu on(p.id = iu.product_id)
     </select>
     <select id="getProductsCount" resultType="java.lang.Integer">
         select
@@ -196,62 +207,60 @@
     </select>
     <select id="findProductById" resultMap="productResultMap">
         select
-            id,
-            product_name,
-            pet_group_id,
-            category_id,
-            product_price,
-            product_price_discount,
-            product_detail,
-            product_brand,
-            product_model,
-            product_memo,
-            product_create_date,
-            product_update_date,
-            recommendation
+            p.id,
+            p.product_name,
+            p.pet_group_id,
+            p.category_id,
+            p.product_price,
+            p.product_price_discount,
+            p.product_detail,
+            p.product_brand,
+            p.product_model,
+            p.product_memo,
+            p.product_create_date,
+            p.product_update_date,
+            p.recommendation,
+            pg.id as pg_id,
+            pg.category_group_name,
+            c.id as c_id,
+            c.category_name,
+            iu.id as iu_id,
+            iu.product_id as iu_product_id,
+            iu.img_path,
+            iu.img_name
         from
-            product_tb
+            product_tb p
+            left outer join pet_group_tb pg on(p.pet_group_id = pg.id)
+            left outer join category_tb c on(p.category_id = c.id)
+            left outer join img_url_tb iu on(p.id = iu.product_id)
         where
             id = #{id}
     </select>
-    <select id="findProductByCategoryId" resultMap="productResultMap">
+    <select id="findProductsPage" resultMap="productResultMap">
         select
-            id,
-            product_name,
-            pet_group_id,
-            category_id,
-            product_price,
-            product_price_discount,
-            product_detail,
-            product_brand,
-            product_model,
-            product_memo,
-            product_create_date,
-            product_update_date,
-            recommendation
-        from
-            product_tb
-        where
-            category_id = #{categoryId}
-    </select>
-    <select id="findAllByCategoryId" resultType="com.meongnyang.shop.entity.CategoryProductList">
-        select
-        id,
-            category_id as categoryId,
-            product_name as productName,
-            product_price as productPrice,
-            product_brand as productBrand
-        from
-            product_tb
-        where
-            category_id = #{categoryId}
-    </select>
-  
-    <select id="getCategoriesCount" resultType="java.lang.Integer">
-        select
-            count(*)
+            p.id,
+            p.product_name,
+            p.pet_group_id,
+            p.category_id,
+            p.product_price,
+            p.product_price_discount,
+            p.product_brand,
+            p.product_model,
+            p.product_create_date,
+            p.product_update_date,
+            p.recommendation,
+            pg.id as pg_id,
+            pg.category_group_name,
+            c.id as c_id,
+            c.category_name,
+            iu.id as iu_id,
+            iu.img_path,
+            iu.img_name
         from
             product_tb p
+            left outer join pet_group_tb pg on(p.pet_group_id = pg.id)
+            left outer join category_tb c on(p.category_id = c.id)
+            left outer join img_url_tb iu on(p.id = iu.product_id)
         where
             1 = 1
             <if test="petGroupId != 0">
@@ -260,9 +269,56 @@
             <if test="categoryId != 0">
                 and p.category_id = #{categoryId}
             </if>
-            <if test="searchWord != null and searchWord != ''">
-                AND p.product_name LIKE CONCAT('%', #{searchWord}, '%')
-            </if>
+        group by
+            p.id,
+            p.product_name,
+            p.pet_group_id,
+            p.category_id,
+            p.product_price,
+            p.product_brand,
+            p.product_update_date,
+            p.recommendation
+        order by
+        <choose>
+            <when test="orderBy == '신상품'">
+                product_update_date DESC
+            </when>
+            <when test="orderBy == '상품명'">
+                product_name ASC
+            </when>
+            <when test="orderBy == '낮은가격'">
+                product_price ASC
+            </when>
+            <when test="orderBy == '높은가격'">
+                product_price DESC
+            </when>
+            <when test="orderBy == '제조사'">
+                product_brand DESC
+            </when>
+            <when test="orderBy == '인기상품'">
+                recommendation DESC
+            </when>
+        </choose>
+        LIMIT
+        #{startIndex}, #{count}
+    </select>
+    <select id="findCategoriesCount" resultType="java.lang.Integer">
+    select
+        count(*)
+    from
+        product_tb p
+    where
+        1 = 1
+        <if test="petGroupId != 0">
+            AND p.pet_group_id = #{petGroupId}
+        </if>
+        <if test="categoryId != 0">
+            and p.category_id = #{categoryId}
+        </if>
+        <if test="searchWord != null and searchWord != ''">
+            AND p.product_name LIKE CONCAT('%', #{searchWord}, '%')
+        </if>
+    </select>
     <select id="findProductDetailById" resultMap="productResultMap">
         select
             p.id,

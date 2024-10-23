@@ -35,7 +35,7 @@ public class Order {
     private User user;
 
     public RespGetUserOrdersDto toRespGetUserOrdersDto() {
-        LocalDate date = orderDate.toLocalDate();
+        LocalDate date = orderDate.atStartOfDay().toLocalDate();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDate = date.format(formatter);
 

@@ -1,5 +1,6 @@
 package com.meongnyang.shop.entity;
 
+import com.meongnyang.shop.dto.response.RespProductsDto;
 import com.meongnyang.shop.dto.response.admin.RespProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +29,7 @@ public class Product {
     private LocalDate productUpdateDate;
     private Long recommendation;
 
+    private ImgUrl imgUrl;
     private List<ImgUrl> imgUrls;
     private PetGroup petGroup;
     private Category category;
@@ -52,6 +54,22 @@ public class Product {
                 .imgs(imgs)
                 .petGroup(petGroup)
                 .category(category)
+                .build();
+    }
+
+    public RespProductsDto toDto() {
+        return RespProductsDto.builder()
+                .productId(id)
+                .productName(productName)
+                .productBrand(productBrand)
+                .productPrice(productPrice)
+                .petGroupId(petGroupId)
+                .petGroupName(petGroup.getCategoryGroupName())
+                .categoryId(categoryId)
+                .categoryName(category.getCategoryName())
+                .ImgUrlId(imgUrl != null ? imgUrl.getId() : null) // null 체크 추가
+                .imgPath(imgUrl != null ? imgUrl.getImgPath() : null) // null 체크 추가
+                .imgName(imgUrl != null ? imgUrl.getImgName() : null)
                 .build();
     }
 }

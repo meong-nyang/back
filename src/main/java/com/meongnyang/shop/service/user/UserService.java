@@ -59,7 +59,7 @@ public class UserService {
         userMapper.updateUserById(dto.toEntity());
     }
 
-//     반려동물정보 조회
+    // 반려동물정보 조회
     public RespPetInfoDto getPetInfo(Long id) {
         Pet pet = petMapper.findPetByUserid(id);
 

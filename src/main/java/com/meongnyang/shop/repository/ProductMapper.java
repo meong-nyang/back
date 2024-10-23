@@ -1,8 +1,6 @@
 package com.meongnyang.shop.repository;
 
-import com.meongnyang.shop.entity.CategoryProductList;
 import com.meongnyang.shop.entity.Product;
-import com.meongnyang.shop.entity.ProductList;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,15 +19,16 @@ public interface ProductMapper {
     int deleteProductById(List<Long> idList);
     Product findProductDetailById(Long id);
 
-    List<ProductList> findAllByStartIndexAndLimit(
-            @Param("startIndex") Long startIndex,
-            @Param("limit") Long limit);
-    int getProductsCount();
-    Product findProductById(Long id);
-    Product findProductByCategoryId(Long categoryId);
-    List<CategoryProductList> findAllByCategoryId(Long categoryId);
-    int getCategoriesCount(
-            @Param("productCategoryId") int productCategoryId,
+    List<Product> findProductsPage(
+            @Param("startIndex") int startIndex,
+            @Param("count") int count,
             @Param("petGroupId") int petGroupId,
+            @Param("categoryId") int categoryId,
+            @Param("orderBy") String orderBy);
+    List<Product> findProductsList();
+    Product findProductById(Long id);
+    int findCategoriesCount(
+            @Param("petGroupId") int petGroupId,
+            @Param("categoryId") int categoryId,
             @Param("searchWord") String searchWord);
 }
