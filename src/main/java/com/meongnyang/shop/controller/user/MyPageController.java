@@ -34,7 +34,7 @@ public class MyPageController {
     @PutMapping("/edit/password")
     public ResponseEntity<?> editPassword(@Valid @RequestBody ReqUpdatePasswordDto dto, BindingResult bindingResult) {
         userService.editPassword(dto);
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok().body(true);
     }
 
     @PutMapping("/user/pet/{userId}")
