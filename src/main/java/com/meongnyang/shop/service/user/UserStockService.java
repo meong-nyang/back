@@ -18,7 +18,7 @@ public class UserStockService {
 
     public RespCurrentStockDto getCurrentStock(List<Long> productIds) {
         List<Stock> stockList = stockMapper.findCurrenStockByProductIds(productIds);
-        System.out.println("stockList" + stockList);
+
         List<RespCurrentStockDto.CurrentStock> stockListDto = stockList.stream()
                 .map(stock -> {
                     RespCurrentStockDto.CurrentStock stockDto = RespCurrentStockDto.CurrentStock.builder()
@@ -27,7 +27,6 @@ public class UserStockService {
                             .build();
                     return stockDto;
                 }).collect(Collectors.toList());
-        System.out.println("stockListDto" + stockListDto);
 
         return RespCurrentStockDto.builder()
                 .currentStocks(stockListDto)

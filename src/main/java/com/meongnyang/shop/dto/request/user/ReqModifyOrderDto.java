@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReqModifyOrderDto {
-    private Long id; //주문 아이디
+    private Long id;
     private Long userId;
     private String orderStatus;
 }

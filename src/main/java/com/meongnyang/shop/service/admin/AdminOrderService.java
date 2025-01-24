@@ -72,7 +72,6 @@ public class AdminOrderService {
                             .build();
         }).collect(Collectors.toList());
 
-        System.out.println(respOrderProductsDtos);
         RespOrderDetailDto dto = RespOrderDetailDto.builder()
                 .id(order.getId())
                 .userId(order.getUserId())
@@ -108,7 +107,7 @@ public class AdminOrderService {
 
     private String getProductImgName(Long productId) {
         List<ImgUrl> imgUrls = imgUrlMapper.findImgUrlByProductId(productId);
-        System.out.println(imgUrls);
+
         if (imgUrls != null && !imgUrls.isEmpty()) {
             return imgUrls.get(0).getImgName();
         }
