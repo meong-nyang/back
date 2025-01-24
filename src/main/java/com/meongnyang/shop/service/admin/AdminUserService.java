@@ -76,8 +76,6 @@ public class AdminUserService {
                         .anyMatch(role -> role.getRole().getRoleName().equals("ROLE_USER")))
                 .collect(Collectors.toList());
 
-        System.out.println(userList);
-
         return RespGetUsersDto.builder()
                 .userList(userList)
                 .userListCount(userMapper.getCountByOption(params))
@@ -90,8 +88,6 @@ public class AdminUserService {
         RespGetUserDetailDto.UserPurchaseData userPurchaseData = userMapper.findUserPurchaseDateById(userId);
         Pet pet = petMapper.findPetByUserId(userId);
 
-//        System.out.println(user.getUserRoles().stream()
-//                .map(userRole -> userRole.getRole().getRoleName()).equals("ROLE_ADMIN"));
         if (user == null) {
             throw new NotFoundUserException("사용자를 찾을 수 없습니다.");
         }

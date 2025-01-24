@@ -47,7 +47,7 @@ public class ProductService {
 
     public RespProductAllDto getProductsAll(ReqProductAllDto dto) {
         Long startIndex = (dto.getPage() - 1) * dto.getLimit();
-        System.out.println(startIndex);
+
         Map<String, Object> params = Map.of(
                 "startIndex", startIndex,
                 "limit", dto.getLimit(),
@@ -87,7 +87,7 @@ public class ProductService {
 
     public RespGetProductDetailDto getProductDetail(Long productId) {
         Product product = userProductMapper.findProductById(productId);
-        System.out.println(product);
+
         Stock stock = stockMapper.findStockByProductId(productId);
         List<String> imgNames = product.getImgUrls().stream().map(ImgUrl::getImgName).collect(Collectors.toList());
 
@@ -96,7 +96,7 @@ public class ProductService {
 
     public RespCheckProductsDto getCheckProduct(ReqGetCheckProductsDto dto) {
         List<Product> productList = userProductMapper.findProductsById(dto.getProductIds());
-        System.out.println(productList);
+
         List<RespCheckProductsDto.CheckProduct> checkProductList = productList.stream()
                 .map(product -> {
                     ImgUrl imgName = imgUrlMapper.findImgNameByProductId(product.getId());

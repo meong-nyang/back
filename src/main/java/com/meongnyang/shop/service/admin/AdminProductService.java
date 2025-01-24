@@ -36,15 +36,11 @@ public class AdminProductService {
     @Autowired
     private CategoryMapper categoryMapper;
     @Autowired
-    private UserMapper userMapper;
-    @Autowired
     private ProductDetailImgMapper productDetailImgMapper;
 
     @Transactional(rollbackFor = Exception.class)
     public void registerProduct(ReqRegisterProductDto dto) throws IOException {
         Product product = dto.toEntity();
-
-        System.out.println(product);
 
         productMapper.save(product);
         stockMapper.save(Stock.builder().productId(product.getId()).build());

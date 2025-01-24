@@ -108,7 +108,6 @@ public class OrderService {
 
             //주문아이디로 주문상세의 상품 리스트들 가져옴(productId와 productCount필요)
             List<OrderDetail> orderDetailList = userOrderDetailMapper.findOrderProductIdByOrderId(dto.getId());
-            System.out.println(orderDetailList);
 
             for (int i = 0; i < orderDetailList.size(); i++) {
                 Map<String, Object> productDetail = Map.of(
